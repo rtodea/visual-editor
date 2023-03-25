@@ -30,6 +30,7 @@
     "@storybook/react": "^7.0.0-rc.8",
     "@storybook/testing-library": "^0.0.14-next.1",
     "eslint-plugin-storybook": "^0.6.11",
+    "prettier": "2.8.7",
     "storybook": "^7.0.0-rc.8"
   }
 }

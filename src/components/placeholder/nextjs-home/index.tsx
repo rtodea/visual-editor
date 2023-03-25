@@ -1,9 +1,14 @@
 import Head from "next/head";
-import styles from "@/styles/Home.module.css";
-import Image from "next/image";
-import { Inter } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+import styles from "./component.module.css";
+import Image from "next/image";
+import VercelSvg from "./img/vercel.svg";
+import NextSvg from "./img/next.svg";
+import ThirteenSvg from "./img/thirteen.svg";
+
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const NextJsWelcomeApp = () => {
   return (
@@ -26,9 +31,9 @@ export const NextJsWelcomeApp = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              By{' '}
+              By{" "}
               <Image
-                src="/vercel.svg"
+                src={VercelSvg}
                 alt="Vercel Logo"
                 className={styles.vercelLogo}
                 width={100}
@@ -42,20 +47,14 @@ export const NextJsWelcomeApp = () => {
         <div className={styles.center}>
           <Image
             className={styles.logo}
-            src="/next.svg"
+            src={NextSvg}
             alt="Next.js Logo"
             width={180}
             height={37}
             priority
           />
           <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
+            <Image src={ThirteenSvg} alt="13" width={40} height={31} priority />
           </div>
         </div>
 
@@ -119,5 +118,5 @@ export const NextJsWelcomeApp = () => {
         </div>
       </main>
     </>
-  )
-}
+  );
+};

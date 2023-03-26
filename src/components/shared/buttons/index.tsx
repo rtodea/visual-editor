@@ -1,37 +1,155 @@
-import { IconButton } from "@mui/material";
-import { NearMe, OpenWith, ScatterPlot } from "@mui/icons-material";
-import { MouseEventHandler } from "react";
+import { IconButton, IconButtonPropsColorOverrides } from "@mui/material";
+import {
+  ChangeHistoryOutlined,
+  HexagonOutlined,
+  NearMe,
+  OpenWith,
+  ScatterPlot,
+  SquareOutlined,
+} from "@mui/icons-material";
+import { FC, MouseEventHandler, ReactElement } from "react";
+import { OverridableStringUnion } from "@mui/types";
 
-export const AllButtons = ({ onClick }: { onClick: MouseEventHandler }) => {
+export type ButtonProps = {
+  onClick: MouseEventHandler;
+  active?: boolean;
+};
+
+export enum ButtonColorClassName {
+  Active = "MuiIconButton-colorPrimary",
+  Default = "MuiIconButton-colorInherit",
+}
+
+export type ButtonFC = FC<ButtonProps>;
+
+export const AllButtons: ButtonFC = ({ onClick, active = false }) => {
   return (
     <>
-      <Select onClick={onClick} />
-      <Move onClick={onClick} />
-      <ClosestPoint onClick={onClick} />
+      <SelectButton onClick={onClick} active={active} />
+      <MoveButton onClick={onClick} active={active} />
+      <ClosestPointButton onClick={onClick} active={active} />
+      <SquareButton onClick={onClick} active={active} />
+      <TriangleButton onClick={onClick} active={active} />
+      <HexagonButton onClick={onClick} active={active} />
     </>
   );
 };
 
-export const Select = ({ onClick }: { onClick: MouseEventHandler }) => {
+const IconButtonStateColor = {
+  Default: "inherit",
+  Active: "primary",
+};
+
+type IconButtonStateColorType =
+  | OverridableStringUnion<
+      | "default"
+      | "primary"
+      | "inherit"
+      | "secondary"
+      | "error"
+      | "info"
+      | "success"
+      | "warning",
+      IconButtonPropsColorOverrides
+    >
+  | undefined;
+
+const IconButtonWithActive: FC<{
+  onClick: MouseEventHandler;
+  active: boolean;
+  children: ReactElement;
+  "data-testid": string;
+}> = ({ onClick, active, children, "data-testid": dataTestId }) => {
+  const color = (active
+    ? IconButtonStateColor.Active
+    : IconButtonStateColor.Default) as unknown as IconButtonStateColorType;
   return (
-    <IconButton onClick={onClick}>
+    <IconButton onClick={onClick} color={color} data-testid={dataTestId}>
+      {children}
+    </IconButton>
+  );
+};
+
+export const SelectButtonId = "select";
+
+export const SelectButton: ButtonFC = ({ onClick, active = false }) => {
+  return (
+    <IconButtonWithActive
+      onClick={onClick}
+      active={active}
+      data-testid={SelectButtonId}
+    >
       <NearMe />
-    </IconButton>
+    </IconButtonWithActive>
   );
 };
 
-export const Move = ({ onClick }: { onClick: MouseEventHandler }) => {
+export const MoveButtonId = "move";
+
+export const MoveButton: ButtonFC = ({ onClick, active = false }) => {
   return (
-    <IconButton onClick={onClick}>
+    <IconButtonWithActive
+      onClick={onClick}
+      active={active}
+      data-testid={MoveButtonId}
+    >
       <OpenWith />
-    </IconButton>
+    </IconButtonWithActive>
   );
 };
 
-export const ClosestPoint = ({ onClick }: { onClick: MouseEventHandler }) => {
+export const ClosestPointButtonId = "closest-point";
+
+export const ClosestPointButton: ButtonFC = ({ onClick, active = false }) => {
   return (
-    <IconButton onClick={onClick}>
+    <IconButtonWithActive
+      onClick={onClick}
+      active={active}
+      data-testid={ClosestPointButtonId}
+    >
       <ScatterPlot />
-    </IconButton>
+    </IconButtonWithActive>
+  );
+};
+
+export const SquareButtonId = "square";
+
+export const SquareButton: ButtonFC = ({ onClick, active = false }) => {
+  return (
+    <IconButtonWithActive
+      onClick={onClick}
+      active={active}
+      data-testid={SquareButtonId}
+    >
+      <SquareOutlined />
+    </IconButtonWithActive>
+  );
+};
+
+export const TriangleButtonId = "triangle";
+
+export const TriangleButton: ButtonFC = ({ onClick, active = false }) => {
+  return (
+    <IconButtonWithActive
+      onClick={onClick}
+      active={active}
+      data-testid={TriangleButtonId}
+    >
+      <ChangeHistoryOutlined />
+    </IconButtonWithActive>
+  );
+};
+
+export const HexagonButtonId = "hexagon";
+
+export const HexagonButton: ButtonFC = ({ onClick, active = false }) => {
+  return (
+    <IconButtonWithActive
+      onClick={onClick}
+      active={active}
+      data-testid={HexagonButtonId}
+    >
+      <HexagonOutlined />
+    </IconButtonWithActive>
   );
 };

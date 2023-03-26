@@ -13,6 +13,8 @@ import { SelectButtonId } from "@/components/shared/buttons";
 import { action } from "@storybook/addon-actions";
 import { userEvent, within } from "@storybook/testing-library";
 import { EditorButtons } from "@/components/editor-buttons";
+import { Drawing } from "@/components/placeholder/drawing";
+import { Square } from "@/components/placeholder/drawable";
 
 export default {
   title: "Components/SideMenu",
@@ -141,7 +143,11 @@ export const SideMenuWithButtons = Template.bind({});
 SideMenuWithButtons.args = {
   sideItemsWidth: 75,
   sideItems: <SideMenuButtonsWithState />,
-  mainContent: <pre>Drawing</pre>,
+  mainContent: (
+    <Drawing>
+      <Square center={{ x: 0, y: 0 }} />
+    </Drawing>
+  ),
 };
 // @ts-ignore
 SideMenuWithButtons.play = async ({ canvasElement }) => {

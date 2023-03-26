@@ -1,33 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { FC, ReactElement } from "react";
 
-import * as THREE from "three";
 import { Vector3 } from "three";
-import { Canvas, ThreeElements } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 // import { OrbitControls, OrthographicCamera } from "@react-three/drei";
 
 export const DrawingId = "drawing";
-
-export const Square = (props: ThreeElements["mesh"]) => {
-  const mesh = useRef<THREE.Mesh>(null!);
-  const [hovered, setHover] = useState(false);
-  const [active, setActive] = useState(false);
-
-  // useFrame((state, delta) => (mesh.current.rotation.x += delta));
-
-  return (
-    <mesh
-      {...props}
-      ref={mesh}
-      scale={active ? 1.5 : 1}
-      onClick={() => setActive(!active)}
-      onPointerOver={() => setHover(true)}
-      onPointerOut={() => setHover(false)}
-    >
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={hovered ? "hotpink" : "orange"} />
-    </mesh>
-  );
-};
 
 /* 2D coordinate system */
 /*
@@ -79,29 +56,40 @@ export type Point3d = {
   z: number;
 };
 
-export const Drawing = () => {
+const ThreeJsOrthogonalCamera = {
+  zoom: 50,
+  position: [0, 1, 0] as unknown as Vector3,
+};
+
+export type DrawingFC = FC<{ children: ReactElement[] | ReactElement }>;
+
+export const ThreeJsDrawing: DrawingFC = ({ children }) => {
+  return (
+    <Canvas
+      id={DrawingId}
+      style={{ height: "100vh", width: "100vw", overflow: "hidden" }}
+      orthographic
+      camera={ThreeJsOrthogonalCamera}
+    >
+      <ambientLight />
+      <pointLight position={[10, 10, 10]} />
+      {children}
+      <gridHelper args={[30, 30]} />
+      <axesHelper />
+    </Canvas>
+  );
+};
+
+export const Drawing: DrawingFC = ({ children }) => {
   return (
     <div
       style={{
-        border: "1px solid black",
+        border: "0px solid black",
+        display: "flex",
+        overflow: "hidden",
       }}
     >
-      <Canvas
-        id={DrawingId}
-        style={{ height: "400px" }}
-        orthographic
-        camera={{
-          zoom: 50,
-          position: [0, 1, 0],
-        }}
-      >
-        <ambientLight />
-        <pointLight position={[10, 10, 10]} />
-        <Square position={vector(convert2dTo3d({ x: 0, y: 0 }))} />
-        <Square position={vector(convert2dTo3d({ x: 4, y: 0 }))} />
-        <gridHelper args={[30, 30]} />
-        <axesHelper />
-      </Canvas>
+      <ThreeJsDrawing>{children}</ThreeJsDrawing>
     </div>
   );
 };

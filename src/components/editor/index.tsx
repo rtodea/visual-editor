@@ -4,7 +4,7 @@ export const Editor = () => {
   return (
     <div>
       <CssBaseline />
-      <h1>React App</h1>
+      <main>🚧 Work in progress 🚧</main>
     </div>
   );
 };

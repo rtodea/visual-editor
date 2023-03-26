@@ -8,7 +8,7 @@ export const SampleButton = () => {
       <Button variant="text">Text</Button>
       <Button variant="contained">Contained</Button>
       <Button variant="outlined">Outlined</Button>
-      <IconButton>
+      <IconButton color="primary">
         <AlarmOn />
       </IconButton>
     </Stack>

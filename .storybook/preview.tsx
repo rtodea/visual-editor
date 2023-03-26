@@ -1,5 +1,6 @@
 import type { Preview } from "@storybook/react";
-// import "../src/styles/globals.css";
+import "../src/styles/globals.css";
+import { Fonts } from "../src/styles/theme/fonts";
 
 const preview: Preview = {
   parameters: {
@@ -12,5 +13,14 @@ const preview: Preview = {
     },
   },
 };
+
+export const decorators = [
+  (Story) => (
+    <>
+      <Fonts></Fonts>
+      {Story()}
+    </>
+  ),
+];
 
 export default preview;

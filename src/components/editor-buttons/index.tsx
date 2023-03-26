@@ -94,3 +94,7 @@ export const EditorButtons: EditorButtonsFC = ({
     </List>
   );
 };
+
+export const useEditorButtons = () => {
+  return useOnlyOneEditorButtonActive();
+};

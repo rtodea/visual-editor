@@ -93,3 +93,12 @@ export const Drawing: DrawingFC = ({ children }) => {
     </div>
   );
 };
+
+// @ts-ignore
+export const DrawingWithState = ({ drawables }) => {
+  return <Drawing>{drawables}</Drawing>;
+};
+
+export const useDrawing = () => {
+  return { drawables: [] };
+};

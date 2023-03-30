@@ -24,3 +24,13 @@ export type DrawableProto = {
   type?: DrawableProtoEnum;
   state?: DrawableProtoState;
 };
+
+export enum DrawingModeEnum {
+  Select = "select",
+  Drag = "drag",
+  ClosestPoint = "closestPoint",
+
+  AddSquare = "addSquare",
+  AddTriangle = "addTriangle",
+  AddHexagon = "addHexagon",
+}

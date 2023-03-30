@@ -42,16 +42,18 @@ export const WithState = () => {
     ]);
   };
 
-  const { drawablePositions } = { drawablePositions: [] }; // useDrawingInnerState();
+  const drawablePositions = drawables.map(({ state }) => state?.position); // useDrawingInnerState();
   const toggleDraggingForAllDrawables = () => {
-    drawables.forEach((drawable) => {
+    setDrawables([...drawables.map((drawable) => {
       const state = drawable.state || {
         isDraggable: true,
         isSelectable: false,
       };
       state.isDraggable = !state.isDraggable;
       state.isSelectable = !state.isSelectable;
-    });
+
+      return drawable;
+    })]);
   };
 
   return (

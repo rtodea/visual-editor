@@ -2,6 +2,7 @@ import { Vector3 } from "three";
 import { Canvas, useThree } from "@react-three/fiber";
 // import { OrbitControls } from "@react-three/drei";
 import React, { FC, ReactElement } from "react";
+import { DrawingContext } from "@/components/placeholder/drawing/hooks";
 
 export const vector = (point: Point3d): Vector3 => {
   return [point.x, point.y, point.z] as unknown as Vector3;
@@ -11,7 +12,10 @@ export type Point2d = {
   x: number;
   y: number;
 };
-export type DrawingFC = FC<{ children: ReactElement[] | ReactElement }>;
+export type DrawingFC = FC<{
+  children: ReactElement[] | ReactElement;
+  drawingContext?: DrawingContext;
+}>;
 export const convert2dTo3d = (canvas: Point2d): Point3d => {
   return {
     x: canvas.x,
@@ -54,7 +58,13 @@ export const ThreeJsOrthogonalCamera = {
  v
  (Z) (blue)
  */
-export const ThreeJsDrawing: DrawingFC = ({ children }) => {
+
+const DefaultDrawingContext = {} as unknown as DrawingContext;
+
+export const ThreeJsDrawing: DrawingFC = ({
+  children,
+  drawingContext = DefaultDrawingContext,
+}) => {
   return (
     <Canvas
       id={DrawingId}
@@ -68,14 +78,20 @@ export const ThreeJsDrawing: DrawingFC = ({ children }) => {
       {children}
       <gridHelper args={[30, 30, "teal", "teal"]} />
       <axesHelper />
-      <ThreeJsStoreIntegration />
+      <ThreeJsStoreIntegration drawingContext={drawingContext} />
     </Canvas>
   );
 };
 
-export const ThreeJsStoreIntegration = () => {
+export const ThreeJsStoreIntegration = ({
+  drawingContext,
+}: {
+  drawingContext: DrawingContext;
+}) => {
+  const scene = useThree((state) => state.scene);
+  scene.userData = drawingContext;
   // @ts-ignore
-  window["threeJsScene"] = useThree((state) => state.scene);
+  window["threeJsScene"] = scene;
   // @ts-ignore
   console.log("threeJsScene", window["threeJsScene"]);
   return <></>;

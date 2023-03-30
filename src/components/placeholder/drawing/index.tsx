@@ -10,16 +10,13 @@ import {
   DrawableProto,
   DrawableProtoEnum,
 } from "@/components/placeholder/drawing/models";
-import { useThree } from "@react-three/fiber";
+import { DrawingContext } from "@/components/placeholder/drawing/hooks";
 
-export const useDrawingInnerState = () => {
-  const scene = useThree((state) => state.scene);
-  return {
-    drawablePositions: [],
-  };
-};
-
-export const Drawing: DrawingFC = ({ children }) => {
+export const DefaultDrawingContext = {} as unknown as DrawingContext;
+export const Drawing: DrawingFC = ({
+  children,
+  drawingContext = DefaultDrawingContext,
+}) => {
   return (
     <div
       style={{
@@ -28,7 +25,9 @@ export const Drawing: DrawingFC = ({ children }) => {
         overflow: "hidden",
       }}
     >
-      <ThreeJsDrawing>{children}</ThreeJsDrawing>
+      <ThreeJsDrawing drawingContext={drawingContext}>
+        {children}
+      </ThreeJsDrawing>
     </div>
   );
 };
@@ -43,12 +42,12 @@ export const DrawablePrototypeToDrawable = {
   undefined: (props: DrawableProto) => <></>,
 };
 
-export const DrawingWithState: FC<{ drawables: DrawableProto[] }> = ({
-  // @ts-ignore
-  drawables,
-}) => {
+export const DrawingWithState: FC<{
+  drawables: DrawableProto[];
+  drawingContext?: DrawingContext;
+}> = ({ drawables, drawingContext = DefaultDrawingContext }) => {
   return (
-    <Drawing>
+    <Drawing drawingContext={drawingContext}>
       {drawables.map((drawable: DrawableProto, index) => {
         // @ts-ignore
         return DrawablePrototypeToDrawable[drawable.type]({
@@ -58,8 +57,4 @@ export const DrawingWithState: FC<{ drawables: DrawableProto[] }> = ({
       })}
     </Drawing>
   );
-};
-
-export const useDrawing = () => {
-  return { drawables: [] };
 };

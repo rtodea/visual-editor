@@ -77,8 +77,8 @@ export const ThreeJsDrawing: DrawingFC = ({
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
       {children}
-      <gridHelper args={[30, 30, "teal", "teal"]} />
-      <axesHelper />
+      {/*<gridHelper args={[30, 30, "teal", "teal"]} />*/}
+      {/*<axesHelper />*/}
       <ThreeJsHooksIntegration drawingContext={drawingContext} />
     </Canvas>
   );

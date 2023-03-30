@@ -1,7 +1,7 @@
 import { ThreeElements } from "@react-three/fiber";
 import * as THREE from "three";
-import { useDrawable } from "@/components/engine/drawable/hooks";
 import React from "react";
+import { useDrawable } from "@/components/engine/drawable/hooks/useDrawable";
 
 export enum DrawableColor {
   Square = "red",

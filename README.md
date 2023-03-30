@@ -2,6 +2,8 @@
 
 <img src="./doc/img/app-sketch.png" alt="low fi sketch of the app">
 
+Demo video: https://screenpal.com/watch/c0ev3TVaby4
+
 Features:
 
 1. ✅ Add at least one of each of 3 shape types to the editor area.
@@ -59,6 +61,8 @@ General principles:
 
 ## 🚧 Limitations
 
+- [ ] closest point is not working at the moment; tried different approaches but the 3d -> 2d conversions
+  made the problem much harder
 - [ ] TODOs are scattered throughout the codebase
 - [ ] `ts-ignore` is used in more than a few places
 - [ ] when dragging the shapes there is a big offset added sometimes

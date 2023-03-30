@@ -4,7 +4,8 @@ import { useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { convert3dTo2d } from "@/components/engine/drawing/index";
 import { DrawingModeEnum } from "@/components/placeholder/drawing/models";
-import { mouseClickOnDrawing } from "@/components/placeholder/drawing/actions";
+import { useDispatch } from "react-redux";
+import { clickOnDrawing } from "@/store/slices/drawables";
 
 export const useCaptureMouseClickDrawingCoordinates = () => {
   const mouse = new THREE.Vector2();
@@ -17,6 +18,8 @@ export const useCaptureMouseClickDrawingCoordinates = () => {
   const camera = useThree((state) => state.camera);
   const scene = useThree((state) => state.scene);
   const size = useThree((state) => state.size);
+
+  const dispatch = useDispatch();
 
   // @ts-ignore
   const onMouseMove = (event) => {
@@ -31,7 +34,6 @@ export const useCaptureMouseClickDrawingCoordinates = () => {
   };
 
   const onMouseClick = () => {
-    console.log("scene", scene.userData.mode);
     if (
       ![
         DrawingModeEnum.AddSquare,
@@ -43,8 +45,8 @@ export const useCaptureMouseClickDrawingCoordinates = () => {
     }
     const [x, y, z] = intersectionPoint.toArray();
     // @ts-ignore
-    scene.userData.dispatch(
-      mouseClickOnDrawing({
+    dispatch(
+      clickOnDrawing({
         activeDrawingMode: scene.userData.mode,
         point2d: convert3dTo2d({ x, y, z }),
       })
@@ -66,6 +68,7 @@ export const ThreeJsHooksIntegration = ({
 }) => {
   useCaptureMouseClickDrawingCoordinates();
 
+  // TODO(robert): maybe move this altogether into Redux store
   const scene = useThree((state) => state.scene);
   scene.userData = drawingContext;
 

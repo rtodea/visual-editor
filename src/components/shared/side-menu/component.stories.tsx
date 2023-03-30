@@ -145,7 +145,7 @@ SideMenuWithButtons.args = {
   sideItems: <SideMenuButtonsWithState />,
   mainContent: (
     <Drawing>
-      <Square center={{ x: 0, y: 0 }} />
+      <Square name="square" center={{ x: 0, y: 0 }} />
     </Drawing>
   ),
 };

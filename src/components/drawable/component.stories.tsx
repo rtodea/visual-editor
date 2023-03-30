@@ -1,10 +1,12 @@
 import React from "react";
 import { Drawing } from "@/components/drawing";
 import { Circle, Hexagon, Square, Triangle } from "@/components/drawable/index";
+import { withMockedRedux } from "@/stories/helpers";
 
 export default {
   title: "Placeholder/Drawing/Shapes",
   component: Drawing,
+  decorators: [withMockedRedux],
 };
 
 export const SquareShape = () => {

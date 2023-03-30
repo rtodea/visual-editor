@@ -2,10 +2,12 @@ import { Drawing, DrawingWithState } from "@/components/drawing/index";
 import React, { useState } from "react";
 import { Square } from "@/components/drawable";
 import { DrawableProto, DrawableProtoEnum } from "@/components/drawing/models";
+import { withMockedRedux } from "@/stories/helpers";
 
 export default {
   title: "Placeholder/Drawing",
   component: Drawing,
+  decorators: [withMockedRedux],
 };
 
 export const Default = () => {

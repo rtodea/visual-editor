@@ -20,6 +20,10 @@ export const drawablesSlice = createSlice({
       state.value = [...state.value, action.payload];
     },
 
+    loadDrawables: (state, action: PayloadAction<DrawableProto[]>) => {
+      state.value = action.payload;
+    },
+
     clickOnDrawing: (
       state,
       action: PayloadAction<{
@@ -91,7 +95,7 @@ export const drawablesSlice = createSlice({
           position,
         };
 
-        return { ...drawable, state };
+        return { ...drawable, state, center: position };
       });
     },
 
@@ -133,6 +137,7 @@ export const {
   enableSelect,
   moveDrawable,
   selectDrawable,
+  loadDrawables,
 } = drawablesSlice.actions;
 // @ts-ignore
 export const selectDrawables = (state) => state.drawables.value;

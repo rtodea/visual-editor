@@ -2,35 +2,11 @@ import { DrawableProtoState } from "@/components/placeholder/drawing/models";
 import { useDispatch } from "react-redux";
 import { moveDrawable, selectDrawable } from "@/store/slices/drawables";
 import { ThreeElements, useThree } from "@react-three/fiber";
-import { DependencyList, EffectCallback, useCallback, useEffect, useRef, useState } from "react";
-import _ from "lodash";
+import { useState } from "react";
 import { Vector3 } from "three";
 import { convert3dTo2d, vector } from "@/components/engine/drawing";
 import { useDrag } from "@use-gesture/react";
-
-// Read more about this here: https://stackoverflow.com/a/67504622/351442
-export function useLazyEffect(
-  effect: EffectCallback,
-  deps: DependencyList = [],
-  wait = 3000
-) {
-  const cleanUp = useRef<void | (() => void)>();
-  const effectRef = useRef<EffectCallback>();
-  const updatedEffect = useCallback(effect, deps);
-  effectRef.current = updatedEffect;
-  const lazyEffect = useCallback(
-    _.debounce(() => {
-      cleanUp.current = effectRef.current?.();
-    }, wait),
-    []
-  );
-  useEffect(lazyEffect, deps);
-  useEffect(() => {
-    return () => {
-      cleanUp.current instanceof Function ? cleanUp.current() : undefined;
-    };
-  }, []);
-}
+import { useLazyEffect } from "@/components/shared/hooks";
 
 export const useUpdatePositionOnDrag = ({
   initialPosition,

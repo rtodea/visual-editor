@@ -1,5 +1,5 @@
 import { ThreeElements, useThree } from "@react-three/fiber";
-import React, { FC, useRef, useState } from "react";
+import React, { FC, useState } from "react";
 import * as THREE from "three";
 import { Vector3 } from "three";
 import {
@@ -61,6 +61,12 @@ export const useSelection = ({
   materialColor: string;
 }) => {
   const [active, setActive] = useState(false);
+  if (!userData) {
+    return {
+      onClick: () => {},
+      color: materialColor,
+    };
+  }
   const onSelected = () => {
     if (!userData.isSelectable) {
       return;
@@ -81,19 +87,15 @@ export const useHover = () => {
   return { onPointerOver, onPointerOut };
 };
 
-export const ThreeJsSquare = (
+export const useDrawable = (
   props: ThreeElements["mesh"] & { materialColor: string }
 ) => {
-  const mesh = useRef<THREE.Mesh>(null!);
-
   const userData = props.userData as DrawableProtoState;
 
   const draggable = useUpdatePositionOnDrag({
     initialPosition: props.position,
     userData,
   });
-
-  // useFrame((state, delta) => (mesh.current.rotation.x += delta));
 
   const selection = useSelection({
     userData,
@@ -102,41 +104,129 @@ export const ThreeJsSquare = (
 
   const hover = useHover();
 
+  const draggableProps = draggable.bind();
+  const meshProps = {
+    name: props.name,
+    userData: props.userData,
+    position: draggable.position,
+    onClick: selection.onClick,
+    onPointerOver: hover.onPointerOver,
+    onPointerOut: hover.onPointerOut,
+    "rotation-x": -Math.PI / 2,
+    ...draggableProps,
+  };
+
+  return {
+    meshProps,
+    selection,
+  };
+};
+
+export const ThreeJsSquare = (
+  props: ThreeElements["mesh"] & { materialColor: string }
+) => {
+  const shape = new THREE.Shape();
+
+  const origin_x = 0;
+  const origin_y = 0;
+  const offset = 1;
+  const points = [
+    { x: origin_x - offset, y: origin_y - offset },
+    { x: origin_x + offset, y: origin_y - offset },
+    { x: origin_x + offset, y: origin_y + offset },
+    { x: origin_x - offset, y: origin_y + offset },
+  ];
+
+  shape.moveTo(points[0].x, points[0].y);
+  points.slice(1).forEach((point) => {
+    shape.lineTo(point.x, point.y);
+  });
+
+  const squareShape = new THREE.ShapeGeometry(shape);
+
+  const { meshProps, selection } = useDrawable(props);
   return (
     // @ts-ignore
-    <mesh
-      ref={mesh}
-      name={props.name}
-      userData={props.userData}
-      position={draggable.position}
-      {...draggable.bind()}
-      onClick={selection.onClick}
-      onPointerOver={hover.onPointerOver}
-      onPointerOut={hover.onPointerOut}
-      rotation-x={-Math.PI / 2}
-    >
-      <planeBufferGeometry attach="geometry" args={[3, 3]} />
-      {/*<meshPhongMaterial attach="material" color={props.materialColor} />*/}
-      {/*<boxGeometry args={[1, 1, 1]} />*/}
-      <meshStandardMaterial
-        // wireframe={active}
-        color={selection.color}
-      />
+    <mesh {...meshProps} geometry={squareShape}>
+      <meshStandardMaterial color={selection.color} />
     </mesh>
   );
 };
 export const ThreeJsTriangle = (props: ThreeElements["mesh"]) => {
-  // TODO(robert): Replace with actual triangle
-  return <ThreeJsSquare {...props} materialColor={DrawableColor.Triangle} />;
+  const shape = new THREE.Shape();
+
+  const origin_x = 0;
+  const origin_y = 0;
+  const offset = 1;
+  const points = [
+    { x: origin_x - offset, y: origin_y - offset },
+    { x: origin_x + offset, y: origin_y - offset },
+    { x: origin_x, y: origin_y + offset },
+  ];
+
+  shape.moveTo(points[0].x, points[0].y);
+  points.slice(1).forEach((point) => {
+    shape.lineTo(point.x, point.y);
+  });
+
+  const triangleShapeGeometry = new THREE.ShapeGeometry(shape);
+
+  const { meshProps, selection } = useDrawable({
+    ...props,
+    materialColor: DrawableColor.Triangle,
+  });
+  return (
+    // @ts-ignore
+    <mesh {...meshProps} geometry={triangleShapeGeometry}>
+      <meshStandardMaterial color={selection.color} />
+    </mesh>
+  );
 };
 export const ThreeJsHexagon = (props: ThreeElements["mesh"]) => {
-  // TODO(robert): Replace with actual hexagon
-  return <ThreeJsSquare {...props} materialColor={DrawableColor.Hexagon} />;
+  const shape = new THREE.Shape();
+
+  const origin_x = 0;
+  const origin_y = 0;
+  const radius = 1;
+  const points = [
+    { x: origin_x, y: origin_y + radius },
+    { x: origin_x + radius * 0.866, y: origin_y + radius * 0.5 },
+    { x: origin_x + radius * 0.866, y: origin_y - radius * 0.5 },
+    { x: origin_x, y: origin_y - radius },
+    { x: origin_x - radius * 0.866, y: origin_y - radius * 0.5 },
+    { x: origin_x - radius * 0.866, y: origin_y + radius * 0.5 },
+  ];
+
+  shape.moveTo(points[0].x, points[0].y);
+  points.slice(1).forEach((point) => {
+    shape.lineTo(point.x, point.y);
+  });
+
+  const hexagonGeometry = new THREE.ShapeGeometry(shape);
+
+  const { meshProps, selection } = useDrawable({
+    ...props,
+    materialColor: DrawableColor.Hexagon,
+  });
+  return (
+    // @ts-ignore
+    <mesh {...meshProps} geometry={hexagonGeometry}>
+      <meshStandardMaterial color={selection.color} />
+    </mesh>
+  );
 };
 
 export const ThreeJsCircle = (props: ThreeElements["mesh"]) => {
-  // TODO(robert): Replace with actual hexagon
-  return <ThreeJsSquare {...props} materialColor={DrawableColor.Hexagon} />;
+  const geometry = new THREE.CircleGeometry(0.1, 32);
+
+  return (
+    <mesh {...props} geometry={geometry} rotation-x={-Math.PI / 2}>
+      <meshStandardMaterial
+        // wireframe={active}
+        color={"black"}
+      />
+    </mesh>
+  );
 };
 
 export const TreeJs2dSquare: FC<DrawableProto> = ({ center, name, state }) => {

@@ -1,6 +1,11 @@
 import React from "react";
 import { Drawing } from "@/components/placeholder/drawing";
-import { Hexagon, Square, Triangle } from "@/components/placeholder/drawable";
+import {
+  Circle,
+  Hexagon,
+  Square,
+  Triangle,
+} from "@/components/placeholder/drawable";
 
 export default {
   title: "Placeholder/Drawing/Shapes",
@@ -18,7 +23,7 @@ export const SquareShape = () => {
 export const TriangleShape = () => {
   return (
     <Drawing>
-      <Triangle center={{ x: 0, y: 0 }} name="circle" />
+      <Triangle center={{ x: 0, y: 0 }} name="triangle" />
     </Drawing>
   );
 };
@@ -27,6 +32,14 @@ export const HexagonShape = () => {
   return (
     <Drawing>
       <Hexagon center={{ x: 0, y: 0 }} name="hexagon" />
+    </Drawing>
+  );
+};
+
+export const CircleShape = () => {
+  return (
+    <Drawing>
+      <Circle center={{ x: 0, y: 0 }} name="circle" />
     </Drawing>
   );
 };

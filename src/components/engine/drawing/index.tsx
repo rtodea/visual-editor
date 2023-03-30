@@ -1,8 +1,9 @@
 import { Vector3 } from "three";
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 // import { OrbitControls } from "@react-three/drei";
 import React, { FC, ReactElement } from "react";
 import { DrawingContext } from "@/components/placeholder/drawing/hooks";
+import { ThreeJsHooksIntegration } from "@/components/engine/drawing/hooks";
 
 export const vector = (point: Point3d): Vector3 => {
   return [point.x, point.y, point.z] as unknown as Vector3;
@@ -78,21 +79,7 @@ export const ThreeJsDrawing: DrawingFC = ({
       {children}
       <gridHelper args={[30, 30, "teal", "teal"]} />
       <axesHelper />
-      <ThreeJsStoreIntegration drawingContext={drawingContext} />
+      <ThreeJsHooksIntegration drawingContext={drawingContext} />
     </Canvas>
   );
-};
-
-export const ThreeJsStoreIntegration = ({
-  drawingContext,
-}: {
-  drawingContext: DrawingContext;
-}) => {
-  const scene = useThree((state) => state.scene);
-  scene.userData = drawingContext;
-  // @ts-ignore
-  window["threeJsScene"] = scene;
-  // @ts-ignore
-  console.log("threeJsScene", window["threeJsScene"]);
-  return <></>;
 };

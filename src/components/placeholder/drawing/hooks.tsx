@@ -4,6 +4,10 @@ import {
   DrawableProtoEnum,
   DrawingModeEnum,
 } from "@/components/placeholder/drawing/models";
+import {
+  DrawingAction,
+  DrawingActionEnum,
+} from "@/components/placeholder/drawing/actions";
 
 const AddShapeModeToShape = {
   [DrawingModeEnum.AddSquare]: DrawableProtoEnum.Square,
@@ -18,18 +22,7 @@ const setAddShapeMode = ({
   setDrawables: React.Dispatch<React.SetStateAction<DrawableProto[]>>;
   mode: DrawingModeEnum;
 }) => {
-  setDrawables((drawables) => {
-    // @ts-ignore
-    const shape = AddShapeModeToShape[mode];
-    return [
-      ...drawables,
-      {
-        center: { x: 0, y: 0 },
-        type: shape,
-        name: `${shape}_${Date.now()}`,
-      },
-    ];
-  });
+  console.log("setAddShapeMode", mode);
 };
 
 const setSelectMode = ({
@@ -79,12 +72,57 @@ const DrawingModeToHandler = {
 
 export type DrawingContext = {
   mode: DrawingModeEnum;
+  dispatch?: unknown;
+};
+
+export const DrawingContextToDrawable = {
+  [DrawingModeEnum.AddSquare]: DrawableProtoEnum.Square,
+  [DrawingModeEnum.AddTriangle]: DrawableProtoEnum.Triangle,
+  [DrawingModeEnum.AddHexagon]: DrawableProtoEnum.Hexagon,
+} as const;
+
+// in-house dispatch
+export const useDispatchWithReducer = ({
+  setDrawables,
+}: {
+  setDrawables: React.Dispatch<React.SetStateAction<DrawableProto[]>>;
+}) => {
+  return (action: DrawingAction) => {
+    console.log("dispatch", action);
+    if (action.type === DrawingActionEnum.MouseClickOnDrawing) {
+      const { activeDrawingMode, point2d } = action.payload as unknown as {
+        activeDrawingMode: DrawingModeEnum;
+        point2d: { x: number; y: number };
+      };
+
+      // @ts-ignore
+      const drawableType = DrawingContextToDrawable[activeDrawingMode];
+      if (!drawableType) {
+        return;
+      }
+
+      // @ts-ignore
+      setDrawables((drawables) => {
+        return [
+          ...drawables,
+          {
+            type: drawableType,
+            name: `${drawableType}_${Date.now()}`,
+            center: point2d,
+          },
+        ];
+      });
+    }
+  };
 };
 
 export const useDrawing = () => {
   const [drawables, setDrawables] = useState<DrawableProto[]>([]);
+  // @ts-ignore
+  const dispatch = useDispatchWithReducer({ setDrawables });
   const [drawingContext, setDrawingContext] = useState<DrawingContext>({
     mode: DrawingModeEnum.Select,
+    dispatch,
   });
 
   return {
@@ -92,7 +130,6 @@ export const useDrawing = () => {
     setDrawingMode: (mode: DrawingModeEnum) => {
       // @ts-ignore
       setDrawingContext((drawingContext) => ({ ...drawingContext, mode }));
-      console.log("setDrawingMode", mode);
       // @ts-ignore
       DrawingModeToHandler[mode]?.({ setDrawables, mode });
     },

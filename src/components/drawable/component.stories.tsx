@@ -1,11 +1,6 @@
 import React from "react";
-import { Drawing } from "@/components/placeholder/drawing";
-import {
-  Circle,
-  Hexagon,
-  Square,
-  Triangle,
-} from "@/components/placeholder/drawable";
+import { Drawing } from "@/components/drawing";
+import { Circle, Hexagon, Square, Triangle } from "@/components/drawable/index";
 
 export default {
   title: "Placeholder/Drawing/Shapes",

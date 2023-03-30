@@ -1,4 +1,4 @@
-import { DrawableProtoState } from "@/components/placeholder/drawing/models";
+import { DrawableProtoState } from "@/components/drawing/models";
 import { useThree } from "@react-three/fiber";
 import { useState } from "react";
 import { Vector3 } from "three";

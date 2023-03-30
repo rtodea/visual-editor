@@ -13,8 +13,8 @@ import { SelectButtonId } from "@/components/shared/buttons";
 import { action } from "@storybook/addon-actions";
 import { userEvent, within } from "@storybook/testing-library";
 import { EditorButtons } from "@/components/editor-buttons";
-import { Drawing } from "@/components/placeholder/drawing";
-import { Square } from "@/components/placeholder/drawable";
+import { Drawing } from "@/components/drawing";
+import { Square } from "@/components/drawable";
 
 export default {
   title: "Components/SideMenu",

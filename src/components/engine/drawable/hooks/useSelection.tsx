@@ -1,4 +1,4 @@
-import { DrawableProtoState } from "@/components/placeholder/drawing/models";
+import { DrawableProtoState } from "@/components/drawing/models";
 import { useDispatch } from "react-redux";
 import { selectDrawable } from "@/store/slices/drawables";
 

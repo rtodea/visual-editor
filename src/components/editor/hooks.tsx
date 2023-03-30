@@ -1,7 +1,7 @@
 import { loadDrawables, selectDrawables } from "@/store/slices/drawables";
 import { useDispatch, useSelector } from "react-redux";
 import { useLazyEffect } from "@/components/shared/hooks";
-import { DrawableProto } from "@/components/placeholder/drawing/models";
+import { DrawableProto } from "@/components/drawing/models";
 import { useEffect } from "react";
 
 export const serialize = (drawables: DrawableProto[]) => {

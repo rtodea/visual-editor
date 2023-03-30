@@ -1,7 +1,4 @@
-import {
-  DrawingModeEnum,
-  Point2d,
-} from "@/components/placeholder/drawing/models";
+import { DrawingModeEnum, Point2d } from "@/components/drawing/models";
 
 export enum DrawingActionEnum {
   MouseClickOnDrawing = "MOUSE_CLICK_ON_DRAWING",

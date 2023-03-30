@@ -1,5 +1,5 @@
 import { ThreeElements } from "@react-three/fiber";
-import { DrawableProtoState } from "@/components/placeholder/drawing/models";
+import { DrawableProtoState } from "@/components/drawing/models";
 import { useUpdatePositionOnDrag } from "@/components/engine/drawable/hooks/useUpdatePositionOnDrag";
 import { useSelection } from "@/components/engine/drawable/hooks/useSelection";
 import { useHover } from "@/components/engine/drawable/hooks/useHover";

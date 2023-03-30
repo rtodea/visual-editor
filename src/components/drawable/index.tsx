@@ -5,7 +5,7 @@ import {
   ThreeJs2dTriangle,
   TreeJs2dSquare,
 } from "@/components/engine/drawable";
-import { DrawableProto } from "@/components/placeholder/drawing/models";
+import { DrawableProto } from "@/components/drawing/models";
 
 export const Square: FC<DrawableProto> = (props) => {
   return <TreeJs2dSquare {...props} />;

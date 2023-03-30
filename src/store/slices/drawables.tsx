@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { DrawableProto, DrawableProtoEnum, DrawingModeEnum, Point2d } from "@/components/placeholder/drawing/models";
+import { DrawableProto, DrawableProtoEnum, DrawingModeEnum, Point2d } from "@/components/drawing/models";
 // import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {

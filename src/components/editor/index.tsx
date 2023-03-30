@@ -1,10 +1,10 @@
 import React from "react";
 import { CssBaseline } from "@mui/material";
 import { SideMenu } from "@/components/shared/side-menu";
-import { DrawingWithState } from "@/components/placeholder/drawing";
+import { DrawingWithState } from "@/components/drawing";
 import { EditorButtons, useEditorButtons } from "@/components/editor-buttons";
-import { DrawingModeEnum } from "@/components/placeholder/drawing/models";
-import { useDrawing } from "@/components/placeholder/drawing/hooks";
+import { DrawingModeEnum } from "@/components/drawing/models";
+import { useDrawing } from "@/components/drawing/hooks";
 import {
   useAutoSave,
   useLoadFromLocalStorage,

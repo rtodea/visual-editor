@@ -1,13 +1,11 @@
 import React, { FC } from "react";
 import { convert2dTo3d, vector } from "@/components/engine/drawing";
-import { DrawableProto } from "@/components/placeholder/drawing/models";
-import {
-  DrawableColor,
-  ThreeJsCircle,
-  ThreeJsHexagon,
-  ThreeJsSquare,
-  ThreeJsTriangle,
-} from "@/components/engine/drawable/shapes";
+import { DrawableProto } from "@/components/drawing/models";
+import { DrawableColor } from "@/components/engine/drawable/shapes/constants";
+import { ThreeJsSquare } from "@/components/engine/drawable/shapes/square";
+import { ThreeJsTriangle } from "@/components/engine/drawable/shapes/triangle";
+import { ThreeJsHexagon } from "@/components/engine/drawable/shapes/hexagon";
+import { ThreeJsCircle } from "@/components/engine/drawable/shapes/circle";
 
 export const TreeJs2dSquare: FC<DrawableProto> = ({ center, name, state }) => {
   return (

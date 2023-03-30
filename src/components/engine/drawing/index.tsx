@@ -2,7 +2,7 @@ import { Vector3 } from "three";
 import { Canvas } from "@react-three/fiber";
 // import { OrbitControls } from "@react-three/drei";
 import React, { FC, ReactElement } from "react";
-import { DrawingContext } from "@/components/placeholder/drawing/hooks";
+import { DrawingContext } from "@/components/drawing/hooks";
 import { ThreeJsHooksIntegration } from "@/components/engine/drawing/hooks";
 
 export const vector = (point: Point3d): Vector3 => {

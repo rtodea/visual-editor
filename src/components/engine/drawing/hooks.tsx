@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import { DrawingContext } from "@/components/placeholder/drawing/hooks";
+import { DrawingContext } from "@/components/drawing/hooks";
 import { useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { convert3dTo2d } from "@/components/engine/drawing/index";
-import { DrawingModeEnum } from "@/components/placeholder/drawing/models";
+import { DrawingModeEnum } from "@/components/drawing/models";
 import { useDispatch } from "react-redux";
 import { clickOnDrawing } from "@/store/slices/drawables";
 

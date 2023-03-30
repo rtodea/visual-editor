@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {
   DrawableProtoEnum,
   DrawingModeEnum,
-} from "@/components/placeholder/drawing/models";
+} from "@/components/drawing/models";
 import { useDispatch, useSelector } from "react-redux";
 import {
   enableDrag,

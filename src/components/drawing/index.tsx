@@ -1,16 +1,8 @@
 import React, { FC } from "react";
 import { DrawingFC, ThreeJsDrawing } from "@/components/engine/drawing";
-import {
-  Circle,
-  Hexagon,
-  Square,
-  Triangle,
-} from "@/components/placeholder/drawable";
-import {
-  DrawableProto,
-  DrawableProtoEnum,
-} from "@/components/placeholder/drawing/models";
-import { DrawingContext } from "@/components/placeholder/drawing/hooks";
+import { Circle, Hexagon, Square, Triangle } from "@/components/drawable";
+import { DrawableProto, DrawableProtoEnum } from "@/components/drawing/models";
+import { DrawingContext } from "@/components/drawing/hooks";
 
 export const DefaultDrawingContext = {} as unknown as DrawingContext;
 export const Drawing: DrawingFC = ({

@@ -1,13 +1,7 @@
-import {
-  Drawing,
-  DrawingWithState,
-} from "@/components/placeholder/drawing/index";
+import { Drawing, DrawingWithState } from "@/components/drawing/index";
 import React, { useState } from "react";
-import { Square } from "@/components/placeholder/drawable";
-import {
-  DrawableProto,
-  DrawableProtoEnum,
-} from "@/components/placeholder/drawing/models";
+import { Square } from "@/components/drawable";
+import { DrawableProto, DrawableProtoEnum } from "@/components/drawing/models";
 
 export default {
   title: "Placeholder/Drawing",
@@ -44,16 +38,18 @@ export const WithState = () => {
 
   const drawablePositions = drawables.map(({ state }) => state?.position); // useDrawingInnerState();
   const toggleDraggingForAllDrawables = () => {
-    setDrawables([...drawables.map((drawable) => {
-      const state = drawable.state || {
-        isDraggable: true,
-        isSelectable: false,
-      };
-      state.isDraggable = !state.isDraggable;
-      state.isSelectable = !state.isSelectable;
+    setDrawables([
+      ...drawables.map((drawable) => {
+        const state = drawable.state || {
+          isDraggable: true,
+          isSelectable: false,
+        };
+        state.isDraggable = !state.isDraggable;
+        state.isSelectable = !state.isSelectable;
 
-      return drawable;
-    })]);
+        return drawable;
+      }),
+    ]);
   };
 
   return (

@@ -4,7 +4,7 @@ import ReactThreeTestRenderer from "@react-three/test-renderer";
 import {
   convert2dTo3d,
   convert3dTo2d,
-} from "@/components/placeholder/drawing/index";
+} from "@/components/engine/drawing/index";
 
 const Mesh = () => {
   const meshRef = useRef();

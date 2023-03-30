@@ -1,34 +1,24 @@
-import { ThreeElements } from "@react-three/fiber";
-import React, { FC, useRef, useState } from "react";
-import * as THREE from "three";
+import React, { FC } from "react";
 import {
-  convert2dTo3d,
-  Point2d,
-  vector,
-} from "@/components/placeholder/drawing";
+  ThreeJs2dCircle,
+  ThreeJs2dHexagon,
+  ThreeJs2dTriangle,
+  TreeJs2dSquare,
+} from "@/components/engine/drawable";
+import { DrawableProto } from "@/components/placeholder/drawing/models";
 
-export const ThreeJsSquare = (props: ThreeElements["mesh"]) => {
-  const mesh = useRef<THREE.Mesh>(null!);
-  const [hovered, setHover] = useState(false);
-  const [active, setActive] = useState(false);
-
-  // useFrame((state, delta) => (mesh.current.rotation.x += delta));
-
-  return (
-    <mesh
-      {...props}
-      ref={mesh}
-      scale={active ? 1.5 : 1}
-      onClick={() => setActive(!active)}
-      onPointerOver={() => setHover(true)}
-      onPointerOut={() => setHover(false)}
-    >
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={hovered ? "hotpink" : "orange"} />
-    </mesh>
-  );
+export const Square: FC<DrawableProto> = (props) => {
+  return <TreeJs2dSquare {...props} />;
 };
 
-export const Square: FC<{ center: Point2d }> = ({ center }) => {
-  return <ThreeJsSquare position={vector(convert2dTo3d(center))} />;
+export const Triangle: FC<DrawableProto> = (props) => {
+  return <ThreeJs2dTriangle {...props} />;
+};
+
+export const Hexagon: FC<DrawableProto> = (props) => {
+  return <ThreeJs2dHexagon {...props} />;
+};
+
+export const Circle: FC<DrawableProto> = (props) => {
+  return <ThreeJs2dCircle {...props} />;
 };

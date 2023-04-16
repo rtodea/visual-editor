@@ -62,7 +62,9 @@ General principles:
 ## 🚧 Limitations
 
 - [ ] closest point is not working at the moment; tried different approaches but the 3d -> 2d conversions
-  made the problem much harder
+  made the problem much harder; check
+  the [./src/components/drawing/closest-point/index.ts](./src/components/drawing/closest-point/index.ts) for logic in 2d
+  this needs to be expanded to 3d, the polygons are translated from their center and the vertexes need to be computed
 - [ ] TODOs are scattered throughout the codebase
 - [ ] `ts-ignore` is used in more than a few places
 - [ ] when dragging the shapes there is a big offset added sometimes

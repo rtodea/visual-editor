@@ -1,32 +1,25 @@
 import { DrawableProtoState } from "@/components/drawing/models";
 import { useThree } from "@react-three/fiber";
-import { useState } from "react";
-import { Vector3 } from "three";
-import { useDispatch } from "react-redux";
+import { useDrag } from "@use-gesture/react";
+import { useCallback, useState } from "react";
+import {
+  convert3dTo2d,
+  Point3d,
+  vectorAsList,
+} from "@/components/engine/drawing";
 import { useLazyEffect } from "@/components/shared/hooks";
 import { moveDrawable } from "@/store/slices/drawables";
-import { convert3dTo2d, vector } from "@/components/engine/drawing";
-import { useDrag } from "@use-gesture/react";
+import { useDispatch } from "react-redux";
 
-export const useUpdatePositionOnDrag = ({
-  initialPosition,
-  userData,
+export const useUpdatePositionOnDrawable = ({
   name,
+  position,
 }: {
-  initialPosition: unknown;
-  userData: DrawableProtoState;
   name: string;
+  position: [number, number, number];
 }) => {
-  const { size, viewport } = useThree();
-  const aspect = size.width / viewport.width;
-
-  // @ts-ignore
-  const [position, setPosition] = useState<Vector3>(initialPosition);
   const dispatch = useDispatch();
-
-  // @ts-ignore
   useLazyEffect(() => {
-    // @ts-ignore
     const [x, y, z] = position;
 
     dispatch(
@@ -40,21 +33,48 @@ export const useUpdatePositionOnDrag = ({
       })
     );
   }, [dispatch, name, position]);
+};
 
-  const bind = useDrag(
-    ({ offset: [mx, my] }) => {
-      if (!userData?.isDraggable) {
+export const useUpdatePositionOnDrag = ({
+  initialPosition,
+  userData,
+  name,
+}: {
+  initialPosition: [number, number, number];
+  userData: DrawableProtoState;
+  name: string | undefined;
+}) => {
+  const { size, viewport, scene } = useThree();
+  const aspect = size.width / viewport.width;
+
+  const [position, setPosition] = useState(initialPosition);
+
+  const bind = useDrag(({ offset: [mx, my] }) => {
+    if (!userData?.isDraggable) {
+      return;
+    }
+
+    const [x0, y0, z0] = initialPosition;
+
+    const new3dPositionOffset = {
+      x: x0 + mx / aspect,
+      y: y0,
+      z: z0 + my / aspect,
+    };
+
+    // setPositionLowLevel(new3dPositionOffset);
+    setPosition(vectorAsList(new3dPositionOffset));
+  }, {});
+
+  const setPositionLowLevel = useCallback(
+    (point3d: Point3d) => {
+      if (!name) {
         return;
       }
-
-      // @ts-ignore
-      const [, y] = position;
-      const new3dPosition = { x: mx / aspect, y, z: my / aspect };
-      // @ts-ignore
-      setPosition(vector(new3dPosition));
+      const object = scene.getObjectByName(name);
+      object?.position.set(point3d.x, point3d.y, point3d.z);
     },
-    // @ts-ignore
-    { pointerEvents: true }
+    [scene, name]
   );
 
   return { bind, position };

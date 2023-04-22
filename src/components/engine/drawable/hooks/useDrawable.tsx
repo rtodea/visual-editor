@@ -10,14 +10,12 @@ export const useDrawable = (
   const userData = props.userData as DrawableProtoState;
 
   const draggable = useUpdatePositionOnDrag({
-    initialPosition: props.position,
-    // @ts-ignore
+    initialPosition: props.position as unknown as [number, number, number],
     name: props.name,
     userData,
   });
 
   const selection = useSelection({
-    // @ts-ignore
     name: props.name,
     userData,
     materialColor: props.materialColor,

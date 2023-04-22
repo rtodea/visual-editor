@@ -15,8 +15,7 @@ export function useLazyEffect(
 ) {
   const cleanUp = useRef<void | (() => void)>();
   const effectRef = useRef<EffectCallback>();
-  const updatedEffect = useCallback(effect, deps);
-  effectRef.current = updatedEffect;
+  effectRef.current = useCallback(effect, deps);
   const lazyEffect = useCallback(
     _.debounce(() => {
       cleanUp.current = effectRef.current?.();

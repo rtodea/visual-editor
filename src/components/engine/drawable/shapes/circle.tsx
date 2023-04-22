@@ -3,7 +3,7 @@ import * as THREE from "three";
 import React from "react";
 
 export const ThreeJsCircle = (props: ThreeElements["mesh"]) => {
-  const geometry = new THREE.CircleGeometry(0.1, 32);
+  const geometry = new THREE.CircleGeometry(0.3, 32);
 
   return (
     <mesh {...props} geometry={geometry} rotation-x={-Math.PI / 2}>

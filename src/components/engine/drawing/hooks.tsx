@@ -61,7 +61,7 @@ export const useCaptureMouseClickDrawingCoordinates = () => {
   }, []);
 };
 
-export const ThreeJsHooksIntegration = ({
+export const DrawablesFactory = ({
   drawingContext,
 }: {
   drawingContext: DrawingContext;

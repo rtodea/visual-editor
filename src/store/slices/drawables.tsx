@@ -101,7 +101,7 @@ export const drawablesSlice = createSlice({
 
     selectDrawable: (
       state,
-      action: PayloadAction<{ name: string; isSelected: boolean }>
+      action: PayloadAction<{ name: string | undefined; isSelected: boolean }>
     ) => {
       const { name, isSelected } = action.payload;
       // @ts-ignore

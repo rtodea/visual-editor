@@ -15,7 +15,7 @@ import { hexagonCenterToVertexList } from "@/components/engine/drawable/shapes/h
 import { squareCenterToVertexList } from "@/components/engine/drawable/shapes/square";
 import { DrawableShapeElevation } from "@/components/engine/drawable/shapes/constants";
 
-export const closestPoint = ({
+export const closestPoint3d = ({
   meshPosition,
   meshType,
   mousePoint3d,
@@ -80,7 +80,7 @@ export const useClosestPoint = ({
     }
 
     setClosestPointPosition(
-      closestPoint({
+      closestPoint3d({
         meshPosition,
         mousePoint3d: mouse3dPosition,
         meshType,
@@ -124,8 +124,6 @@ export const useVertexPositions = ({ meshName }: { meshName: string }) => {
   }, [scene, meshName, meshType]);
   return { vertexPositions };
 };
-
-export const CLOSEST_POINT_ELEVATION = 0.3;
 
 export const ClosestPoint = ({ name }: { name: string }) => {
   const { closestPointPosition } = useClosestPoint({

@@ -3,6 +3,7 @@ import * as THREE from "three";
 import { useDrawable } from "@/components/engine/drawable/hooks/useDrawable";
 import { DrawableColor } from "@/components/engine/drawable/shapes/constants";
 import React from "react";
+import { Point3d } from "@/components/engine/drawing";
 
 export const TRIANGLE_OFFSET = 2;
 
@@ -35,4 +36,19 @@ export const ThreeJsTriangle = (props: ThreeElements["mesh"]) => {
       <meshStandardMaterial color={selection.color} />
     </mesh>
   );
+};
+export const triangleCenterToVertexList = (center: Point3d): Point3d[] => {
+  return [
+    {
+      x: center.x - TRIANGLE_OFFSET,
+      y: center.y,
+      z: center.z + TRIANGLE_OFFSET,
+    },
+    {
+      x: center.x + TRIANGLE_OFFSET,
+      y: center.y,
+      z: center.z + TRIANGLE_OFFSET,
+    },
+    { x: center.x, y: center.y, z: center.z - TRIANGLE_OFFSET },
+  ];
 };

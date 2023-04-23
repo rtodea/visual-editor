@@ -1,4 +1,5 @@
-import { hexagonCenterToVertexList } from "@/components/engine/drawable/smart-shapes/closest-point/converters/hexagon";
+import { describe, expect, it } from "@jest/globals";
+import { hexagonCenterToVertexList } from "@/components/engine/drawable/shapes/hexagon";
 
 describe("Hexagon from center to vertices", () => {
   it("should return a list of 6 vertices", () => {

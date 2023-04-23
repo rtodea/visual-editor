@@ -2,6 +2,7 @@ import { ThreeElements } from "@react-three/fiber";
 import * as THREE from "three";
 import { useDrawable } from "@/components/engine/drawable/hooks/useDrawable";
 import React from "react";
+import { Point3d } from "@/components/engine/drawing";
 
 export const SQUARE_OFFSET = 2;
 
@@ -34,4 +35,28 @@ export const ThreeJsSquare = (
       <meshStandardMaterial color={selection.color} />
     </mesh>
   );
+};
+export const squareCenterToVertexList = (center: Point3d): Point3d[] => {
+  return [
+    {
+      x: center.x - SQUARE_OFFSET,
+      y: center.y,
+      z: center.z - SQUARE_OFFSET,
+    },
+    {
+      x: center.x + SQUARE_OFFSET,
+      y: center.y,
+      z: center.z - SQUARE_OFFSET,
+    },
+    {
+      x: center.x + SQUARE_OFFSET,
+      y: center.y,
+      z: center.z + SQUARE_OFFSET,
+    },
+    {
+      x: center.x - SQUARE_OFFSET,
+      y: center.y,
+      z: center.z + SQUARE_OFFSET,
+    },
+  ];
 };

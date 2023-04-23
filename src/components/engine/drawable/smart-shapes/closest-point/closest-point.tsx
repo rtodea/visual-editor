@@ -9,10 +9,11 @@ import {
 } from "@/components/engine/drawing";
 import { Vector3 } from "three";
 import { DrawableProtoEnum } from "@/components/drawing/models";
-import { triangleCenterToVertexList } from "@/components/engine/drawable/smart-shapes/closest-point/converters/triangle";
-import { squareCenterToVertexList } from "@/components/engine/drawable/smart-shapes/closest-point/converters/square";
-import { hexagonCenterToVertexList } from "@/components/engine/drawable/smart-shapes/closest-point/converters/hexagon";
 import { closestPointInPolygon } from "@/components/drawing/closest-point";
+import { triangleCenterToVertexList } from "@/components/engine/drawable/shapes/triangle";
+import { hexagonCenterToVertexList } from "@/components/engine/drawable/shapes/hexagon";
+import { squareCenterToVertexList } from "@/components/engine/drawable/shapes/square";
+import { DrawableShapeElevation } from "@/components/engine/drawable/shapes/constants";
 
 export const closestPoint = ({
   meshPosition,
@@ -130,14 +131,12 @@ export const ClosestPoint = ({ name }: { name: string }) => {
   const { closestPointPosition } = useClosestPoint({
     meshName: name,
   });
-  closestPointPosition[1] = CLOSEST_POINT_ELEVATION;
+  closestPointPosition[1] = DrawableShapeElevation.ClosestPoint;
 
   return (
-    <>
-      <ThreeJsCircle
-        name={`ClosestPoint_${name}`}
-        position={closestPointPosition}
-      />
-    </>
+    <ThreeJsCircle
+      name={`ClosestPoint_${name}`}
+      position={closestPointPosition}
+    />
   );
 };

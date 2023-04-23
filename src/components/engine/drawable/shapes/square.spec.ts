@@ -1,4 +1,5 @@
-import { squareCenterToVertexList } from "@/components/engine/drawable/smart-shapes/closest-point/converters/square";
+import { describe, expect, it } from "@jest/globals";
+import { squareCenterToVertexList } from "@/components/engine/drawable/shapes/square";
 
 describe("Square from center to vertices", () => {
   it("should return a list of 4 vertices", () => {

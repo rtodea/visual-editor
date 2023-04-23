@@ -8,6 +8,7 @@ export enum DrawableProtoEnum {
   Triangle = "triangle",
   Hexagon = "hexagon",
   Circle = "circle",
+  Unknown = "unknown",
 }
 
 export type DrawableProtoState = {

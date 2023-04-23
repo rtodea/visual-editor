@@ -4,19 +4,23 @@ import { useDrawable } from "@/components/engine/drawable/hooks/useDrawable";
 import { DrawableColor } from "@/components/engine/drawable/shapes/constants";
 import React from "react";
 
+export const HEXAGON_OFFSET = 2;
+
 export const ThreeJsHexagon = (props: ThreeElements["mesh"]) => {
   const shape = new THREE.Shape();
 
   const origin_x = 0;
   const origin_y = 0;
-  const radius = 1;
+  const radius = HEXAGON_OFFSET;
+  const cosine_30 = Math.cos(Math.PI / 6);
+  const sine_30 = Math.sin(Math.PI / 6);
   const points = [
     { x: origin_x, y: origin_y + radius },
-    { x: origin_x + radius * 0.866, y: origin_y + radius * 0.5 },
-    { x: origin_x + radius * 0.866, y: origin_y - radius * 0.5 },
+    { x: origin_x + radius * cosine_30, y: origin_y + radius * sine_30 },
+    { x: origin_x + radius * cosine_30, y: origin_y - radius * sine_30 },
     { x: origin_x, y: origin_y - radius },
-    { x: origin_x - radius * 0.866, y: origin_y - radius * 0.5 },
-    { x: origin_x - radius * 0.866, y: origin_y + radius * 0.5 },
+    { x: origin_x - radius * cosine_30, y: origin_y - radius * sine_30 },
+    { x: origin_x - radius * cosine_30, y: origin_y + radius * sine_30 },
   ];
 
   shape.moveTo(points[0].x, points[0].y);

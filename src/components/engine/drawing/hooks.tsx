@@ -61,7 +61,7 @@ export const useCaptureMouseClickDrawingCoordinates = () => {
   }, []);
 };
 
-export const DrawablesFactory = ({
+export const DrawableFactory = ({
   drawingContext,
 }: {
   drawingContext: DrawingContext;

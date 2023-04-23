@@ -3,6 +3,8 @@ import * as THREE from "three";
 import { useDrawable } from "@/components/engine/drawable/hooks/useDrawable";
 import React from "react";
 
+export const SQUARE_OFFSET = 2;
+
 export const ThreeJsSquare = (
   props: ThreeElements["mesh"] & { materialColor: string }
 ) => {
@@ -10,7 +12,7 @@ export const ThreeJsSquare = (
 
   const origin_x = 0;
   const origin_y = 0;
-  const offset = 1;
+  const offset = SQUARE_OFFSET;
   const points = [
     { x: origin_x - offset, y: origin_y - offset },
     { x: origin_x + offset, y: origin_y - offset },

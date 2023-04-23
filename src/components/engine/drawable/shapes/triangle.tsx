@@ -4,12 +4,14 @@ import { useDrawable } from "@/components/engine/drawable/hooks/useDrawable";
 import { DrawableColor } from "@/components/engine/drawable/shapes/constants";
 import React from "react";
 
+export const TRIANGLE_OFFSET = 2;
+
 export const ThreeJsTriangle = (props: ThreeElements["mesh"]) => {
   const shape = new THREE.Shape();
 
   const origin_x = 0;
   const origin_y = 0;
-  const offset = 1;
+  const offset = TRIANGLE_OFFSET;
   const points = [
     { x: origin_x - offset, y: origin_y - offset },
     { x: origin_x + offset, y: origin_y - offset },

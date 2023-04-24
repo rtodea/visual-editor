@@ -95,9 +95,9 @@ export const useClosestPoint = ({
 };
 
 const VERTEX_LOOKUP_BY_MESH_TYPE = {
-  [DrawableProtoEnum.Triangle]: triangleCenterToVertexList,
-  [DrawableProtoEnum.Square]: squareCenterToVertexList,
-  [DrawableProtoEnum.Hexagon]: hexagonCenterToVertexList,
+  [DrawableProtoEnum.Triangle]: (center) => triangleCenterToVertexList(center),
+  [DrawableProtoEnum.Square]: (center) => squareCenterToVertexList(center),
+  [DrawableProtoEnum.Hexagon]: (center) => hexagonCenterToVertexList(center),
 } as const;
 
 export const useVertexPositions = ({ meshName }: { meshName: string }) => {

@@ -7,19 +7,19 @@ describe("Triangle from center to vertices", () => {
     expect(vertexList.length).toEqual(3);
     expect(vertexList).toEqual([
       {
-        x: -1,
+        x: -2,
         y: 0,
-        z: 1,
+        z: 2,
       },
       {
-        x: 1,
+        x: 2,
         y: 0,
-        z: 1,
+        z: 2,
       },
       {
         x: 0,
         y: 0,
-        z: -1,
+        z: -2,
       },
     ]);
   });

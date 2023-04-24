@@ -2,7 +2,9 @@
 
 <img src="./doc/img/app-sketch.png" alt="low fi sketch of the app">
 
-Demo video: https://screenpal.com/watch/c0ev3TVaby4
+🚀 App:  https://visual-editor-ten.vercel.app/
+
+🎬 Demo: https://screenpal.com/watch/c0ev3TVaby4
 
 Updates:
 

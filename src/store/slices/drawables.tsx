@@ -95,7 +95,7 @@ export const drawablesSlice = createSlice({
           position,
         };
 
-        return { ...drawable, state };
+        return { ...drawable, state, center: position };
       });
     },
 

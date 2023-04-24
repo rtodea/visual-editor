@@ -3,6 +3,7 @@ import { useThree } from "@react-three/fiber";
 import { useDrag } from "@use-gesture/react";
 import { useCallback, useState } from "react";
 import {
+  convert2dTo3d,
   convert3dTo2d,
   Point3d,
   vectorAsList,
@@ -10,6 +11,21 @@ import {
 import { useLazyEffect } from "@/components/shared/hooks";
 import { moveDrawable } from "@/store/slices/drawables";
 import { useDispatch } from "react-redux";
+
+const useDispatchMovePosition = ({ name }: { name: string }) => {
+  const dispatch = useDispatch();
+
+  return {
+    dispatchNewPosition: (point: Point3d) => {
+      dispatch(
+        moveDrawable({
+          name,
+          position: convert3dTo2d(point),
+        })
+      );
+    },
+  };
+};
 
 export const useDispatchPositionUpdate = ({
   name,
@@ -39,23 +55,34 @@ export const useDragDrawable = ({
   initialPosition,
   userData,
   name,
+  onMoveFinish,
 }: {
   initialPosition: [number, number, number];
   userData: DrawableProtoState;
   name: string | undefined;
+  onMoveFinish?: (point: Point3d) => void;
 }) => {
   const { size, viewport, scene } = useThree();
   const aspect = size.width / viewport.width;
 
-  const [position, setPosition] = useState(initialPosition);
+  const initialPoint3d = userData?.position
+    ? convert2dTo3d(userData?.position)
+    : { x: initialPosition[0], y: initialPosition[1], z: initialPosition[2] };
+  const [position, setPosition] = useState([
+    initialPoint3d.x,
+    initialPoint3d.y,
+    initialPoint3d.z,
+  ]);
 
-  const bind = useDrag(({ offset: [mx, my] }) => {
+  const bind = useDrag(({ down, movement: [mx, my] }) => {
     if (!userData?.isDraggable) {
       return;
     }
 
-    const [x0, y0, z0] = initialPosition;
-    // console.log(x0, y0, z0);
+    console.log("dragging", name, down, mx, my);
+
+    const [x0, y0, z0] = [initialPoint3d.x, initialPoint3d.y, initialPoint3d.z];
+    console.log("initial", x0, y0, z0);
 
     const new3dPositionOffset = {
       x: x0 + mx / aspect,
@@ -66,6 +93,9 @@ export const useDragDrawable = ({
     // TODO(robert): try different approaches for less lag
     // setPositionLowLevel(new3dPositionOffset);
     setPosition(vectorAsList(new3dPositionOffset));
+    if (!down) {
+      onMoveFinish?.(new3dPositionOffset);
+    }
   }, {});
 
   const setPositionLowLevel = useCallback(
@@ -91,15 +121,12 @@ export const useMoveWithDrag = ({
   userData: DrawableProtoState;
   name: string | undefined;
 }) => {
+  const { dispatchNewPosition } = useDispatchMovePosition({ name: name || "" });
   const { bind, position } = useDragDrawable({
     initialPosition,
     userData,
     name,
-  });
-
-  useDispatchPositionUpdate({
-    name: name as string,
-    position: position as [number, number, number],
+    onMoveFinish: dispatchNewPosition,
   });
 
   return {

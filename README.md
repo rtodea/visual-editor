@@ -4,7 +4,7 @@
 
 🚀 App:  https://visual-editor-ten.vercel.app/
 
-🎬 Demo: https://screenpal.com/watch/c0ev3TVaby4
+🎬 Demo: https://drive.google.com/file/d/13toVHPDH2mqbx5GR5HrwTRA7GaTo2dvD/view?usp=drivesdk
 
 Updates:
 

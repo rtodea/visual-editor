@@ -28,7 +28,10 @@ export const cosineOfAngleBetweenVectors = (
   return dot / (v1Length * v2Length);
 };
 
-export const projectedPointOnEdge = ([a, b]: [Point2d, Point2d], p: Point2d) => {
+export const projectedPointOnEdge = (
+  [a, b]: [Point2d, Point2d],
+  p: Point2d
+) => {
   // This function should return the point on the line defined by `a` and `b`
   // that is closest to `p`.
   const v1: Vector2d = vectorFromPoints(a, b);
@@ -69,12 +72,48 @@ export const pointDistance = (point1: Point2d, point2: Point2d): number => {
   return Math.sqrt(dx * dx + dy * dy);
 };
 
+// Using answer from https://stackoverflow.com/questions/217578/how-can-i-determine-whether-a-2d-point-is-within-a-polygon
+export const isPointInPolygon = (polygon: Point2d[], p: Point2d): boolean => {
+  // This function should return true if `pos` is inside the polygon
+  // defined by `poly`, and false otherwise.
+
+  // quick test
+  const Xmin = Math.min(...polygon.map((p) => p.x));
+  const Xmax = Math.max(...polygon.map((p) => p.x));
+  const Ymin = Math.min(...polygon.map((p) => p.y));
+  const Ymax = Math.max(...polygon.map((p) => p.y));
+  if (p.x < Xmin || p.x > Xmax || p.y < Ymin || p.y > Ymax) {
+    return false;
+  }
+
+  let isInside = false;
+  let i = 0,
+    j = polygon.length - 1;
+  for (; i < polygon.length; j = i++) {
+    if (
+      polygon[i].y > p.y != polygon[j].y > p.y &&
+      p.x <
+        ((polygon[j].x - polygon[i].x) * (p.y - polygon[i].y)) /
+          (polygon[j].y - polygon[i].y) +
+          polygon[i].x
+    ) {
+      isInside = !isInside;
+    }
+  }
+
+  return isInside;
+};
+
 export const closestPointInPolygon = (
   poly: Point2d[],
   pos: Point2d
 ): Point2d | undefined => {
   // This function should return the closest point to `pos` that is
   // inside the polygon defined by `poly`.
+  if (isPointInPolygon(poly, pos)) {
+    return pos;
+  }
+
   const edges = polygonToEdges(poly);
   const edgesWithClosestPoints = edges.filter((edge) =>
     isProjectionOnEdge(pos, edge)

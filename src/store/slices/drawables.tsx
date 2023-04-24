@@ -95,13 +95,13 @@ export const drawablesSlice = createSlice({
           position,
         };
 
-        return { ...drawable, state, center: position };
+        return { ...drawable, state };
       });
     },
 
     selectDrawable: (
       state,
-      action: PayloadAction<{ name: string; isSelected: boolean }>
+      action: PayloadAction<{ name: string | undefined; isSelected: boolean }>
     ) => {
       const { name, isSelected } = action.payload;
       // @ts-ignore

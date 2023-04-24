@@ -1,6 +1,6 @@
 import { ThreeElements } from "@react-three/fiber";
 import { DrawableProtoState } from "@/components/drawing/models";
-import { useUpdatePositionOnDrag } from "@/components/engine/drawable/hooks/useUpdatePositionOnDrag";
+import { useMoveWithDrag } from "@/components/engine/drawable/hooks/useMove";
 import { useSelection } from "@/components/engine/drawable/hooks/useSelection";
 import { useHover } from "@/components/engine/drawable/hooks/useHover";
 
@@ -9,15 +9,13 @@ export const useDrawable = (
 ) => {
   const userData = props.userData as DrawableProtoState;
 
-  const draggable = useUpdatePositionOnDrag({
-    initialPosition: props.position,
-    // @ts-ignore
+  const draggable = useMoveWithDrag({
+    initialPosition: props.position as unknown as [number, number, number],
     name: props.name,
     userData,
   });
 
   const selection = useSelection({
-    // @ts-ignore
     name: props.name,
     userData,
     materialColor: props.materialColor,

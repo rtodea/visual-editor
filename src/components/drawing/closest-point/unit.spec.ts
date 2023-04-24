@@ -7,7 +7,7 @@ import {
 } from "@/components/drawing/closest-point/index";
 
 describe("closest point logic", () => {
-  it("should return the closest point", () => {
+  it("should return the closest point on line", () => {
     expect(
       closestPointInPolygon(
         [
@@ -19,6 +19,20 @@ describe("closest point logic", () => {
         { x: 15, y: 5 }
       )
     ).toEqual({ x: 10, y: 5 });
+  });
+
+  it("should return the pos because it is inside the polygon", () => {
+    expect(
+      closestPointInPolygon(
+        [
+          { x: 0, y: 0 },
+          { x: 10, y: 0 },
+          { x: 10, y: 10 },
+          { x: 0, y: 10 },
+        ],
+        { x: 5, y: 5 }
+      )
+    ).toEqual({ x: 5, y: 5 });
   });
 });
 

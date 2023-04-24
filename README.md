@@ -2,13 +2,29 @@
 
 <img src="./doc/img/app-sketch.png" alt="low fi sketch of the app">
 
-Demo video: https://screenpal.com/watch/c0ev3TVaby4
+🚀 App:  https://visual-editor-ten.vercel.app/
+
+🎬 Demo: https://screenpal.com/watch/c0ev3TVaby4
+
+Updates:
+
+1. support for closest point tool. Relevant files:
+    1. 2d algorithm: [source file](src/components/drawing/closest-point/index.ts)
+       and [spec file](src/components/drawing/closest-point/unit.spec.ts)
+    2. factory for creating the closest points for each
+       drawable [source](./src/components/engine/drawable/smart-shapes/closest-point);
+       these are destroyed when the editor does not need to display them
+    3. [closest point shape](src/components/engine/drawable/smart-shapes/closest-point/closest-point.tsx)
+    4. debug for mouse tracking: [tracker.ts](src/components/engine/drawable/smart-shapes/tracker.tsx) available when
+       adding `?debug` to the URL
+2. fix the shape movement snap when dragging
+    1. due to not understanding how the `useDrag` utility works
 
 Features:
 
 1. ✅ Add at least one of each of 3 shape types to the editor area.
 2. ✅ Move any of the shapes freely both vertically and horizontally.
-3. 🚧 Activate the “Closest point” tool and see the highlighted points follow the mouse cursor as it moves.
+3. ✅ Activate the “Closest point” tool and see the highlighted points follow the mouse cursor as it moves.
 4. ✅ State manager integrated with drawing engine (ThreeJS)
 5. ✅ Serialization of state (auto-save to local storage after 10s) and reload on page refresh
 
@@ -61,10 +77,6 @@ General principles:
 
 ## 🚧 Limitations
 
-- [ ] closest point is not working at the moment; tried different approaches but the 3d -> 2d conversions
-  made the problem much harder; check
-  the [./src/components/drawing/closest-point/index.ts](./src/components/drawing/closest-point/index.ts) for logic in 2d
-  this needs to be expanded to 3d, the polygons are translated from their center and the vertexes need to be computed
 - [ ] TODOs are scattered throughout the codebase
 - [ ] `ts-ignore` is used in more than a few places
 - [ ] when dragging the shapes there is a big offset added sometimes

@@ -3,10 +3,17 @@ import { Canvas } from "@react-three/fiber";
 // import { OrbitControls } from "@react-three/drei";
 import React, { FC, ReactElement } from "react";
 import { DrawingContext } from "@/components/drawing/hooks";
-import { ThreeJsHooksIntegration } from "@/components/engine/drawing/hooks";
+import { DrawableFactory } from "@/components/engine/drawing/hooks";
+// import { Stats } from "@react-three/drei";
+import { MouseTrackerDebug } from "@/components/engine/drawable/smart-shapes/tracker";
+import { ClosestPointFactory } from "@/components/engine/drawable/smart-shapes/closest-point/closest-point-factory";
 
-export const vector = (point: Point3d): Vector3 => {
+export const vector3 = (point: Point3d): Vector3 => {
   return [point.x, point.y, point.z] as unknown as Vector3;
+};
+
+export const vectorAsList = (point: Point3d): [number, number, number] => {
+  return [point.x, point.y, point.z];
 };
 export const DrawingId = "drawing";
 export type Point2d = {
@@ -77,9 +84,12 @@ export const ThreeJsDrawing: DrawingFC = ({
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
       {children}
+      <DrawableFactory drawingContext={drawingContext} />
+      <ClosestPointFactory />
       {/*<gridHelper args={[30, 30, "teal", "teal"]} />*/}
       {/*<axesHelper />*/}
-      <ThreeJsHooksIntegration drawingContext={drawingContext} />
+      {/*<Stats />*/}
+      <MouseTrackerDebug />
     </Canvas>
   );
 };

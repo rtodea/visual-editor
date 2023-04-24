@@ -8,7 +8,7 @@ export const useSelection = ({
   userData,
   materialColor,
 }: {
-  name: string;
+  name: string | undefined;
   userData: DrawableProtoState;
   materialColor: string;
 }) => {

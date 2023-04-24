@@ -113,6 +113,9 @@ const useSideMenuButtonsWithState = () => {
       onClick: action("hexagonButton"),
       active: false,
     },
+    resetButton: {
+      onClick: action("resetButton"),
+    },
   };
 };
 

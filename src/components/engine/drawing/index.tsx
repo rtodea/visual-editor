@@ -5,7 +5,7 @@ import React, { FC, ReactElement } from "react";
 import { DrawingContext } from "@/components/drawing/hooks";
 import { DrawableFactory } from "@/components/engine/drawing/hooks";
 // import { Stats } from "@react-three/drei";
-import { MouseTracker } from "@/components/engine/drawable/smart-shapes/tracker";
+import { MouseTrackerDebug } from "@/components/engine/drawable/smart-shapes/tracker";
 import { ClosestPointFactory } from "@/components/engine/drawable/smart-shapes/closest-point/closest-point-factory";
 
 export const vector3 = (point: Point3d): Vector3 => {
@@ -89,7 +89,7 @@ export const ThreeJsDrawing: DrawingFC = ({
       {/*<gridHelper args={[30, 30, "teal", "teal"]} />*/}
       {/*<axesHelper />*/}
       {/*<Stats />*/}
-      <MouseTracker />
+      <MouseTrackerDebug />
     </Canvas>
   );
 };

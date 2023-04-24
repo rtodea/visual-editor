@@ -5,10 +5,13 @@ import { DrawingWithState } from "@/components/drawing";
 import { EditorButtons, useEditorButtons } from "@/components/editor-buttons";
 import { DrawingModeEnum } from "@/components/drawing/models";
 import { useDrawing } from "@/components/drawing/hooks";
-import { useLoadFromLocalStorage } from "@/components/editor/hooks";
+import {
+  useAutoSave,
+  useLoadFromLocalStorage,
+} from "@/components/editor/hooks";
 
 export const Editor = () => {
-  // useAutoSave();
+  useAutoSave();
 
   useLoadFromLocalStorage();
 

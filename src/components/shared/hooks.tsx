@@ -11,7 +11,7 @@ import _ from "lodash";
 export function useLazyEffect(
   effect: EffectCallback,
   deps: DependencyList = [],
-  wait = 3000
+  wait = 1000
 ) {
   const cleanUp = useRef<void | (() => void)>();
   const effectRef = useRef<EffectCallback>();

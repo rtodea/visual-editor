@@ -6,9 +6,19 @@ import {
   DrawableColor,
   DrawableShapeElevation,
 } from "@/components/engine/drawable/shapes/constants";
+import { useSearchParams } from "next/navigation";
+
+export const useMouseTrackerVisibility = () => {
+  const searchParams = useSearchParams();
+  const isVisible = searchParams.has("debug");
+
+  return { isVisible };
+};
 
 export const MouseTracker = () => {
   const { mouse3dPosition } = useMouse3dPosition();
+
+
   return (
     <ThreeJsCircle
       name={"MOUSE_TRACKER"}
@@ -20,3 +30,12 @@ export const MouseTracker = () => {
     />
   );
 };
+
+export const MouseTrackerDebug = () => {
+  const { isVisible } = useMouseTrackerVisibility();
+  if (!isVisible) {
+    return <></>;
+  } else {
+    return <MouseTracker />;
+  }
+}

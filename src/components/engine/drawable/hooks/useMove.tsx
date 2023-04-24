@@ -11,7 +11,7 @@ import { useLazyEffect } from "@/components/shared/hooks";
 import { moveDrawable } from "@/store/slices/drawables";
 import { useDispatch } from "react-redux";
 
-export const useUpdatePositionOnDrawable = ({
+export const useDispatchPositionUpdate = ({
   name,
   position,
 }: {
@@ -35,7 +35,7 @@ export const useUpdatePositionOnDrawable = ({
   }, [dispatch, name, position]);
 };
 
-export const useUpdatePositionOnDrag = ({
+export const useDragDrawable = ({
   initialPosition,
   userData,
   name,
@@ -55,6 +55,7 @@ export const useUpdatePositionOnDrag = ({
     }
 
     const [x0, y0, z0] = initialPosition;
+    // console.log(x0, y0, z0);
 
     const new3dPositionOffset = {
       x: x0 + mx / aspect,
@@ -62,6 +63,7 @@ export const useUpdatePositionOnDrag = ({
       z: z0 + my / aspect,
     };
 
+    // TODO(robert): try different approaches for less lag
     // setPositionLowLevel(new3dPositionOffset);
     setPosition(vectorAsList(new3dPositionOffset));
   }, {});
@@ -78,4 +80,30 @@ export const useUpdatePositionOnDrag = ({
   );
 
   return { bind, position };
+};
+
+export const useMoveWithDrag = ({
+  initialPosition,
+  userData,
+  name,
+}: {
+  initialPosition: [number, number, number];
+  userData: DrawableProtoState;
+  name: string | undefined;
+}) => {
+  const { bind, position } = useDragDrawable({
+    initialPosition,
+    userData,
+    name,
+  });
+
+  useDispatchPositionUpdate({
+    name: name as string,
+    position: position as [number, number, number],
+  });
+
+  return {
+    bind,
+    position,
+  };
 };

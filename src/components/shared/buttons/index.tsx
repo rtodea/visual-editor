@@ -1,6 +1,7 @@
 import { IconButton, IconButtonPropsColorOverrides } from "@mui/material";
 import {
   ChangeHistoryOutlined,
+  DeleteForeverTwoTone,
   HexagonOutlined,
   NearMe,
   OpenWith,
@@ -151,5 +152,15 @@ export const HexagonButton: ButtonFC = ({ onClick, active = false }) => {
     >
       <HexagonOutlined />
     </IconButtonWithActive>
+  );
+};
+
+export const ResetButtonId = "reset";
+
+export const ResetButton: ButtonFC = ({ onClick }) => {
+  return (
+    <IconButton onClick={onClick} data-testid={ResetButtonId}>
+      <DeleteForeverTwoTone />
+    </IconButton>
   );
 };

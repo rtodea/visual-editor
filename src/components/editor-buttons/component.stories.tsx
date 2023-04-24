@@ -49,6 +49,9 @@ Default.args = {
     onClick: action("hexagonButton"),
     active: false,
   },
+  resetButton: {
+    onClick: action("resetButton"),
+  },
 };
 
 export const WithState = () => {

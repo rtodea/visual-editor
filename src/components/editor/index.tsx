@@ -8,12 +8,14 @@ import { useDrawing } from "@/components/drawing/hooks";
 import {
   useAutoSave,
   useLoadFromLocalStorage,
+  useResetDrawing,
 } from "@/components/editor/hooks";
 
 export const Editor = () => {
   useAutoSave();
 
   useLoadFromLocalStorage();
+  const { reset } = useResetDrawing();
 
   const { setDrawingMode, ...drawing } = useDrawing();
 
@@ -24,6 +26,10 @@ export const Editor = () => {
     squareButton: () => setDrawingMode(DrawingModeEnum.AddSquare),
     triangleButton: () => setDrawingMode(DrawingModeEnum.AddTriangle),
     hexagonButton: () => setDrawingMode(DrawingModeEnum.AddHexagon),
+    resetButton: () => {
+      setDrawingMode(DrawingModeEnum.Select);
+      reset();
+    },
   });
 
   return (

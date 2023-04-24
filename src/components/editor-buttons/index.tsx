@@ -4,6 +4,7 @@ import {
   ClosestPointButton,
   HexagonButton,
   MoveButton,
+  ResetButton,
   SelectButton,
   SquareButton,
   TriangleButton,
@@ -26,6 +27,7 @@ export type EditorButtonsConfig<T> = {
   squareButton: T;
   triangleButton: T;
   hexagonButton: T;
+  resetButton: T;
 };
 
 export type EditorButtonsProps = EditorButtonsConfig<ButtonProps>;
@@ -58,6 +60,9 @@ export const useOnlyOneEditorButtonActive = (): EditorButtonsProps => {
       onClick: () => setActive(ActiveButtonId.Hexagon),
       active: active === ActiveButtonId.Hexagon,
     },
+    resetButton: {
+      onClick: () => setActive(ActiveButtonId.Select),
+    },
   };
 };
 
@@ -70,6 +75,7 @@ export const EditorButtons: EditorButtonsFC = ({
   squareButton,
   triangleButton,
   hexagonButton,
+  resetButton,
 }) => {
   return (
     <List>
@@ -82,7 +88,7 @@ export const EditorButtons: EditorButtonsFC = ({
       <ListItem>
         <ClosestPointButton {...closestPointButton} />
       </ListItem>
-      <Divider></Divider>
+      <Divider />
       <ListItem>
         <SquareButton {...squareButton} />
       </ListItem>
@@ -91,6 +97,10 @@ export const EditorButtons: EditorButtonsFC = ({
       </ListItem>
       <ListItem>
         <HexagonButton {...hexagonButton} />
+      </ListItem>
+      <Divider />
+      <ListItem>
+        <ResetButton {...resetButton} />
       </ListItem>
     </List>
   );

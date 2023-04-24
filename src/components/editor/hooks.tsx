@@ -37,3 +37,12 @@ export const useLoadFromLocalStorage = () => {
     dispatch(loadDrawables(drawables));
   }, [dispatch]);
 };
+
+export const useResetDrawing = () => {
+  const dispatch = useDispatch();
+  return {
+    reset: () => {
+      dispatch(loadDrawables([]));
+    },
+  };
+};

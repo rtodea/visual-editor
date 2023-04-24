@@ -1,6 +1,6 @@
 import { ThreeElements } from "@react-three/fiber";
 import { DrawableProtoState } from "@/components/drawing/models";
-import { useMoveWithDrag } from "@/components/engine/drawable/hooks/useMove";
+import { useMove } from "@/components/engine/drawable/hooks/useMove";
 import { useSelection } from "@/components/engine/drawable/hooks/useSelection";
 import { useHover } from "@/components/engine/drawable/hooks/useHover";
 
@@ -9,7 +9,7 @@ export const useDrawable = (
 ) => {
   const userData = props.userData as DrawableProtoState;
 
-  const draggable = useMoveWithDrag({
+  const move = useMove({
     initialPosition: props.position as unknown as [number, number, number],
     name: props.name,
     userData,
@@ -23,16 +23,16 @@ export const useDrawable = (
 
   const hover = useHover();
 
-  const draggableProps = draggable.bind();
+  const moveProps = move.bind();
   const meshProps = {
     name: props.name,
     userData: props.userData,
-    position: draggable.position,
+    position: move.position,
     onClick: selection.onClick,
     onPointerOver: hover.onPointerOver,
     onPointerOut: hover.onPointerOut,
     "rotation-x": -Math.PI / 2,
-    ...draggableProps,
+    ...moveProps,
   };
 
   return {

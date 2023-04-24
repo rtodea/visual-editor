@@ -79,10 +79,7 @@ export const useDragDrawable = ({
       return;
     }
 
-    console.log("dragging", name, down, mx, my);
-
     const [x0, y0, z0] = [initialPoint3d.x, initialPoint3d.y, initialPoint3d.z];
-    console.log("initial", x0, y0, z0);
 
     const new3dPositionOffset = {
       x: x0 + mx / aspect,
@@ -112,7 +109,7 @@ export const useDragDrawable = ({
   return { bind, position };
 };
 
-export const useMoveWithDrag = ({
+export const useMove = ({
   initialPosition,
   userData,
   name,

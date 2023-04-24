@@ -127,6 +127,7 @@ const SideMenuButtonsWithState = () => {
     squareButton,
     triangleButton,
     hexagonButton,
+    resetButton,
   } = useSideMenuButtonsWithState();
 
   return (
@@ -137,6 +138,7 @@ const SideMenuButtonsWithState = () => {
       squareButton={squareButton}
       triangleButton={triangleButton}
       hexagonButton={hexagonButton}
+      resetButton={resetButton}
     />
   );
 };

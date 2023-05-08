@@ -6,20 +6,6 @@
 
 🎬 Demo: https://drive.google.com/file/d/13toVHPDH2mqbx5GR5HrwTRA7GaTo2dvD/view?usp=drivesdk
 
-Updates:
-
-1. support for closest point tool. Relevant files:
-    1. 2d algorithm: [source file](src/components/drawing/closest-point/index.ts)
-       and [spec file](src/components/drawing/closest-point/unit.spec.ts)
-    2. factory for creating the closest points for each
-       drawable [source](./src/components/engine/drawable/smart-shapes/closest-point);
-       these are destroyed when the editor does not need to display them
-    3. [closest point shape](src/components/engine/drawable/smart-shapes/closest-point/closest-point.tsx)
-    4. debug for mouse tracking: [tracker.ts](src/components/engine/drawable/smart-shapes/tracker.tsx) available when
-       adding `?debug` to the URL
-2. fix the shape movement snap when dragging
-    1. due to not understanding how the `useDrag` utility works
-
 Features:
 
 1. ✅ Add at least one of each of 3 shape types to the editor area.
@@ -42,6 +28,21 @@ Main parts:
 4. [store](./src/store/slices/drawables.tsx) - contains the state manager responsible for converting actions from within
    the drawing
    or outside the drawing (editor buttons) into changes for the drawables
+
+Updates:
+
+1. support for closest point tool. Relevant files:
+    1. 2d algorithm: [source file](src/components/drawing/closest-point/index.ts)
+       and [spec file](src/components/drawing/closest-point/unit.spec.ts)
+    2. factory for creating the closest points for each
+       drawable [source](./src/components/engine/drawable/smart-shapes/closest-point);
+       these are destroyed when the editor does not need to display them
+    3. [closest point shape](src/components/engine/drawable/smart-shapes/closest-point/closest-point.tsx)
+    4. debug for mouse tracking: [tracker.ts](src/components/engine/drawable/smart-shapes/tracker.tsx) available when
+       adding `?debug` to the URL
+2. fix the shape movement snap when dragging
+    1. due to not understanding how the `useDrag` utility works
+
 
 High Level Architecture
 

@@ -7,10 +7,10 @@ import { ThreeJsTriangle } from "@/components/engine/drawable/shapes/triangle";
 import { ThreeJsHexagon } from "@/components/engine/drawable/shapes/hexagon";
 import { ThreeJsCircle } from "@/components/engine/drawable/shapes/circle";
 
-export const TreeJs2dSquare: FC<DrawableProto> = ({ center, name, state }) => {
+export const TreeJs2dSquare: FC<DrawableProto> = ({ center, name, state, depth = 0 }) => {
   return (
     <ThreeJsSquare
-      position={vector3(convert2dTo3d(center))}
+      position={vector3(convert2dTo3d(center, depth))}
       name={name}
       materialColor={DrawableColor.Square}
       userData={state}
@@ -22,10 +22,11 @@ export const ThreeJs2dTriangle: FC<DrawableProto> = ({
   center,
   name,
   state,
+  depth = 0,
 }) => {
   return (
     <ThreeJsTriangle
-      position={vector3(convert2dTo3d(center))}
+      position={vector3(convert2dTo3d(center, depth))}
       name={name}
       userData={state}
     />
@@ -36,20 +37,21 @@ export const ThreeJs2dHexagon: FC<DrawableProto> = ({
   center,
   name,
   state,
+  depth = 0,
 }) => {
   return (
     <ThreeJsHexagon
-      position={vector3(convert2dTo3d(center))}
+      position={vector3(convert2dTo3d(center, depth))}
       name={name}
       userData={state}
     />
   );
 };
 
-export const ThreeJs2dCircle: FC<DrawableProto> = ({ center, name, state }) => {
+export const ThreeJs2dCircle: FC<DrawableProto> = ({ center, name, state, depth = 0 }) => {
   return (
     <ThreeJsCircle
-      position={vector3(convert2dTo3d(center))}
+      position={vector3(convert2dTo3d(center, depth))}
       name={name}
       userData={state}
     />

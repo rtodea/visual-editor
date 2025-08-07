@@ -43,8 +43,9 @@ export const DrawingWithState: FC<{
       {drawables.map((drawable: DrawableProto, index) => {
         // @ts-ignore
         return DrawablePrototypeToDrawable[drawable.type]({
-          key: index,
           ...drawable,
+          key: index,
+          depth: index,
         });
       })}
     </Drawing>

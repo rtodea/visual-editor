@@ -38,7 +38,8 @@ describe("Mesh Test", () => {
 
 describe("Converting coordinate systems", () => {
   it("should convert from 2D to 3D", () => {
-    expect(convert2dTo3d({ x: 1, y: 10 })).toEqual({
+    const depth = 0;
+    expect(convert2dTo3d({ x: 1, y: 10 }, depth)).toEqual({
       x: 1,
       y: 0,
       z: 10,
@@ -46,7 +47,8 @@ describe("Converting coordinate systems", () => {
   });
 
   it("should convert from 3D to 2D", () => {
-    expect(convert2dTo3d({ x: 1, y: 10 })).toEqual({
+    const depth = 0;
+    expect(convert2dTo3d({ x: 1, y: 10 }, depth)).toEqual({
       x: 1,
       y: 0,
       z: 10,
@@ -54,7 +56,8 @@ describe("Converting coordinate systems", () => {
   });
 
   it("should convert from 3d to 2d and back", () => {
-    expect(convert2dTo3d(convert3dTo2d({ x: 1, y: 0, z: 10 }))).toEqual({
+    const depth = 0;
+    expect(convert2dTo3d(convert3dTo2d({ x: 1, y: 0, z: 10 }), depth)).toEqual({
       x: 1,
       y: 0,
       z: 10,
@@ -62,7 +65,8 @@ describe("Converting coordinate systems", () => {
   });
 
   it("should convert from 2d to 3d and back", () => {
-    expect(convert3dTo2d(convert2dTo3d({ x: 1, y: 10 }))).toEqual({
+    const depth = 0;
+    expect(convert3dTo2d(convert2dTo3d({ x: 1, y: 10 }, depth))).toEqual({
       x: 1,
       y: 10,
     });

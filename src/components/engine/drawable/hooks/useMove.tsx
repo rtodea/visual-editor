@@ -66,7 +66,7 @@ export const useDragDrawable = ({
   const aspect = size.width / viewport.width;
 
   const initialPoint3d = userData?.position
-    ? convert2dTo3d(userData?.position)
+    ? convert2dTo3d(userData?.position, initialPosition[1])
     : { x: initialPosition[0], y: initialPosition[1], z: initialPosition[2] };
   const [position, setPosition] = useState([
     initialPoint3d.x,

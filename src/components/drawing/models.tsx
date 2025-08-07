@@ -24,6 +24,7 @@ export type DrawableProto = {
   center: Point2d;
   type?: DrawableProtoEnum;
   state?: DrawableProtoState;
+  depth?: number;
 };
 
 export enum DrawingModeEnum {

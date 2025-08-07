@@ -42,7 +42,7 @@ export const closestPoint3d = ({
     return [mousePoint3d.x, mousePoint3d.y, mousePoint3d.z];
   }
 
-  const closestPoint3d = convert2dTo3d(closestPoint2d);
+  const closestPoint3d = convert2dTo3d(closestPoint2d, meshPosition.y);
   return [closestPoint3d.x, closestPoint3d.y, closestPoint3d.z];
 };
 

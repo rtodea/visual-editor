@@ -24,10 +24,10 @@ export type DrawingFC = FC<{
   children: ReactElement[] | ReactElement;
   drawingContext?: DrawingContext;
 }>;
-export const convert2dTo3d = (canvas: Point2d): Point3d => {
+export const convert2dTo3d = (canvas: Point2d, depth: number): Point3d => {
   return {
     x: canvas.x,
-    y: 0,
+    y: depth,
     z: canvas.y,
   };
 };
